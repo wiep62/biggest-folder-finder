@@ -1,0 +1,32 @@
+1. для ускорения работы прогшраммы создаем многопоточность,
+- MyThread наследуетс от Thread ( реализует многопоточность)
+2. FolderSizeCalculator -
+в sum += task.join();  .join сработает когда , ответвившийся поток завершит свое выполнение и все потоки тут объеденятся
+- потом возвр-ся сумма(полный размер всех файлов)
+
+ПРИМЕР РАБОТЫ МНОГО ПОТОЧНОСТИ:
+    //todo ускоряем работу Кода (разветвляем ДЖОЙНИМ):
+        MyThread thread = new MyThread(1); //1 potok
+        MyThread thread2 = new MyThread(2); // 2 potok
+
+        //zapusk potoka:
+        thread.start();
+        thread2.start();
+
+        -------------------------------------
+
+        public class MyThread extends Thread{
+
+            private int threadNumber;
+            public MyThread(int threadNumber){
+         this.threadNumber = threadNumber;
+            }
+            @Override
+            public void run() { //пишем код который будет работать в отдельном потоке (все что хотим пишем):
+               // super.run();
+                for (;;){
+                    System.out.println(threadNumber);
+                }
+            }
+        }
+3.
