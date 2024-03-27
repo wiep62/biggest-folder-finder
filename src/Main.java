@@ -5,6 +5,7 @@ import java.util.concurrent.ForkJoinPool;
 public class Main {
     public static void main(String[] args) {
 
+        System.out.println(getHumanReadableSize(2939165973));
         String folderPath ="C:\\Users\\wiep6\\OneDrive";
         File file = new File(folderPath);
         long start = System.currentTimeMillis();
@@ -45,5 +46,28 @@ System.out.println(duration + " Miliseconds");*/
             sum += getFolderSize(file);
         }
         return  sum;
+    }
+
+    //todo 24B,234kb,36Mb,34Gb,42Tb
+   static String strVal;
+    public static String getHumanReadableSize(long size){
+
+
+        if (size < 1000){
+          strVal = size + "B";
+        } else if (size / (Math.pow(2, 10)) < 1000 && size >=1000) {
+            strVal = Math.round(size / Math.pow(2, 10)) + "kb";
+        }else if (size / (Math.pow(2, 20)) < 1000 && size >=Math.pow(2, 10)) {
+            strVal = Math.round(size / Math.pow(2, 20)) + "Mb";
+        }else if (size / (Math.pow(2, 30)) < 1000 && size >=Math.pow(2, 20)) {
+            strVal = Math.round(size / Math.pow(2, 30)) + "Gb";
+        }else if (size / (Math.pow(2, 40)) < 1000 && size >=Math.pow(2, 30)) {
+            strVal = Math.round(size / Math.pow(2, 40)) + "Tb";
+        }
+        return strVal;
+    }
+    //todo написать метод, который преобразует  24B,234kb,36Mb,34Gb,42Tb в байты:
+    public long getSizeFromHumanReadable(String size){
+        return 0;
     }
 }
