@@ -1,11 +1,16 @@
+import com.sun.jdi.IntegerValue;
+
 import java.io.File;
+import java.util.HashMap;
 import java.util.Set;
 import java.util.concurrent.ForkJoinPool;
 
 public class Main {
     public static void main(String[] args) {
 
-        System.out.println(getHumanReadableSize(2939165973));
+        System.out.println(getHumanReadableSize(29388888));
+        //System.out.println(getSizeFromHumanReadable("235K"));
+System.exit(0);
         String folderPath ="C:\\Users\\wiep6\\OneDrive";
         File file = new File(folderPath);
         long start = System.currentTimeMillis();
@@ -49,25 +54,57 @@ System.out.println(duration + " Miliseconds");*/
     }
 
     //todo 24B,234kb,36Mb,34Gb,42Tb
-   static String strVal;
+    static String strValreturn;
+
     public static String getHumanReadableSize(long size){
 
+        char[] multipliers = {'B', 'K', 'M', 'G', 'T'};
 
-        if (size < 1000){
-          strVal = size + "B";
-        } else if (size / (Math.pow(2, 10)) < 1000 && size >=1000) {
-            strVal = Math.round(size / Math.pow(2, 10)) + "kb";
+    /* if (size / (Math.pow(2, 10)) < 1000 && size >=1000) {
+            long    strVal = Math.round(size / Math.pow(2, 10)) ;
+            return   strValreturn = strVal + "k";
+
         }else if (size / (Math.pow(2, 20)) < 1000 && size >=Math.pow(2, 10)) {
-            strVal = Math.round(size / Math.pow(2, 20)) + "Mb";
+            long   strVal = Math.round(size / Math.pow(2, 20));
+            return   strValreturn = strVal + "M";
         }else if (size / (Math.pow(2, 30)) < 1000 && size >=Math.pow(2, 20)) {
-            strVal = Math.round(size / Math.pow(2, 30)) + "Gb";
+            long    strVal = Math.round(size / Math.pow(2, 30)) ;
+            return    strValreturn = strVal + "G";
         }else if (size / (Math.pow(2, 40)) < 1000 && size >=Math.pow(2, 30)) {
-            strVal = Math.round(size / Math.pow(2, 40)) + "Tb";
-        }
-        return strVal;
+        long    strVal = Math.round(size / Math.pow(2, 40)) ;
+            return     strValreturn = strVal + "T";
+        }else {
+            return   strValreturn = size + "B";
+
+        }*/
+
     }
     //todo написать метод, который преобразует  24B,234kb,36Mb,34Gb,42Tb в байты:
-    public long getSizeFromHumanReadable(String size){
-        return 0;
+    public static long getSizeFromHumanReadable(String size){
+        HashMap<Character, Integer> char2multiplier = getMultipliers();
+        char sizeFactor = size
+                .replaceAll("[0-9\\s+]", "")
+                .charAt(0);
+        int multiplier = char2multiplier.get(sizeFactor);  //множитель
+      long length = multiplier * Long.valueOf(size.replaceAll("[^0-9]", "")) ;
+        return length;
+    }
+
+    private static HashMap<Character, Integer> getMultipliers()
+    {
+        char[] multipliers = {'B', 'K', 'M', 'G', 'T'};
+HashMap<Character, Integer> char2multiplier = new HashMap<>();
+for (int i = 0; i < multipliers.length; i++){
+    char2multiplier.put(
+            multipliers[i],
+            (int) Math.pow(1024, i)
+    );
+}
+return char2multiplier;
+        /*char2multiplier.put('B', 1);
+        char2multiplier.put('K', 1024);
+        char2multiplier.put('M', 1024 * 1024);
+        char2multiplier.put('G', 1024 * 1024 * 1024);
+        char2multiplier.put('T', 1024 * 1024 * 1024 * 1024);*/
     }
 }
