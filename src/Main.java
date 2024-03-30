@@ -8,7 +8,7 @@ import java.util.concurrent.ForkJoinPool;
 public class Main {
     public static void main(String[] args) {
 
-        System.out.println(getHumanReadableSize(29388888));
+        System.out.println(getHumanReadableSize(240640));
         //System.out.println(getSizeFromHumanReadable("235K"));
 System.exit(0);
         String folderPath ="C:\\Users\\wiep6\\OneDrive";
@@ -58,27 +58,19 @@ System.out.println(duration + " Miliseconds");*/
 
     public static String getHumanReadableSize(long size){
 
-        char[] multipliers = {'B', 'K', 'M', 'G', 'T'};
-
-    /* if (size / (Math.pow(2, 10)) < 1000 && size >=1000) {
-            long    strVal = Math.round(size / Math.pow(2, 10)) ;
-            return   strValreturn = strVal + "k";
-
-        }else if (size / (Math.pow(2, 20)) < 1000 && size >=Math.pow(2, 10)) {
-            long   strVal = Math.round(size / Math.pow(2, 20));
-            return   strValreturn = strVal + "M";
-        }else if (size / (Math.pow(2, 30)) < 1000 && size >=Math.pow(2, 20)) {
-            long    strVal = Math.round(size / Math.pow(2, 30)) ;
-            return    strValreturn = strVal + "G";
-        }else if (size / (Math.pow(2, 40)) < 1000 && size >=Math.pow(2, 30)) {
-        long    strVal = Math.round(size / Math.pow(2, 40)) ;
-            return     strValreturn = strVal + "T";
-        }else {
-            return   strValreturn = size + "B";
-
-        }*/
+        char[] sizeMultipliers = {'B', 'K', 'M', 'G', 'T'};
+        for (int i = 0; i < sizeMultipliers.length; i++){
+            double value = size / Math.pow(1024, i);
+            if (value < 1024) {
+                return Math.round(value) + " " + sizeMultipliers[i] +
+                        (i > 0 ? "b" : "");
+            }
+    }
+        return "very big!";
 
     }
+
+
     //todo написать метод, который преобразует  24B,234kb,36Mb,34Gb,42Tb в байты:
     public static long getSizeFromHumanReadable(String size){
         HashMap<Character, Integer> char2multiplier = getMultipliers();
